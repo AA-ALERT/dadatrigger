@@ -68,3 +68,11 @@ The event (ie. the dumped data) can be replayed, for further processing.
 2. connect a  *dada_diskdb* to the ringbuffer as writer and pass it the file(s):
     dada_diskdb -k <key> -f <file1> [-f <file2> ...]
 3. connect your processing script to the ringbuffer as a reader
+
+Notes
+=====
+
+1. *dada_dbdisk* can only accept 1024 input files. Configure *dada_dbdisk* to write bigger files if you run into this limit. Option::
+     FILE_SIZE    384000000.0
+
+
