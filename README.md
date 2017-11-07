@@ -59,3 +59,12 @@ Usage
 2. Get data flowing by running *setup.sh*
 3. Trigger an event by sending message to the dada\_dbevent program (see the explanation above, and the generated file *trigger*)
 
+
+Replaying an event
+===================
+
+The event (ie. the dumped data) can be replayed, for further processing.
+1. create a ringbuffer with exactly the same page size
+2. connect a  *dada_diskdb* to the ringbuffer as writer and pass it the file(s):
+    dada_diskdb -k <key> -f <file1> [-f <file2> ...]
+3. connect your processing script to the ringbuffer as a reader
