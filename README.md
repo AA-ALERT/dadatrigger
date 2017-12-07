@@ -72,7 +72,6 @@ The event (ie. the dumped data) can be replayed, for further processing.
 Notes
 =====
 
-1. *dada_dbdisk* can only accept 1024 input files. Configure *dada_dbdisk* to write bigger files if you run into this limit. Option::
-     FILE_SIZE    384000000.0
+1. *dada_dbdisk* can only accept 1024 input files. Configure *dada_dbdisk* to write bigger files if you run into this limit. Set *FILE_SIZE* to 384000000.0
 
 
