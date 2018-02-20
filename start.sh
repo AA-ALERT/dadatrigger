@@ -13,7 +13,7 @@ if [ x$FITS_TEMPLATES == x ]; then
 fi
 
 ######################################################################
-# Observation configuration
+echo "Observation configuration"
 ######################################################################
 
 # Set the science case: 
@@ -109,7 +109,7 @@ DISKIQUV_SIZE=${MAINIQUV_SIZE}
 DISKIQUV_COUNT=3
 
 ######################################################################
-# Start the dada_db ring buffers
+echo "Start the dada_db ring buffers"
 ######################################################################
 
 # delete ringbuffers TODO: do we really want that? it could accidentally kill another observation
@@ -123,7 +123,7 @@ ${BINDIR}/dada_db -p -k ${MAINIQUV_KEY} -n ${MAINIQUV_COUNT} -b ${MAINIQUV_SIZE}
 ${BINDIR}/dada_db -p -k ${DISKIQUV_KEY} -n ${DISKIQUV_COUNT} -b ${DISKIQUV_SIZE} -r 1
 
 ######################################################################
-# Start the dada_dbevent for FRB triggers
+echo "Start the dada_dbevent for FRB triggers"
 ######################################################################
 
 # TASK: Respond to FRB triggers
@@ -139,7 +139,7 @@ ${BINDIR}/dada_dbevent ${MAINIQUV_KEY} ${DISKIQUV_KEY} -v -t ${TRIGGER_HISTORY} 
 # NOTE: multilog writes to stderr here
 
 ######################################################################
-# Start AMBER
+echo  "Start AMBER"
 ######################################################################
 
 # TASK: build example trigger
@@ -166,7 +166,7 @@ echo "${EVENTSTART} 0 ${EVENTEND} 0 2.0 1.0" >> trigger
 # TASK: connect AMBER to the ringbuffer
 
 ######################################################################
-# Start the data writers
+echo "Start the data writers"
 ######################################################################
 
 # TASK: Write full I to disk in filterbank format
@@ -183,13 +183,11 @@ ${BINDIR}/dadafilterbank -c ${SCIENCE_CASE} -m ${SCIENCE_MODE_I} -k ${MAINI_KEY}
 # dadafits [options]
 # -k <hexadecimal key>
 # -l <logfile>
-# -c <science_case>
-# -m <science_mode>
-# -b <padded_size>
 # -t <template>
 # -d <output_directory>
-# -s <synthesized beam table>
-${BINDIR}/dadafits -c ${SCIENCE_CASE} -m ${SCIENCE_MODE_I} -b ${FULL_I_PADDED_SIZE} -k ${MAINI_KEY} -d ${OUTPUT_REDUCED_I} -l ${LOG_WRITER_REDUCED_I} -t ${FITS_TEMPLATES}/sc34_1bit_I_reduced.txt &
+# -S <synthesized beam table>
+# -s <synthesize these beams>
+${BINDIR}/dadafits -k ${MAINI_KEY} -l ${LOG_WRITER_REDUCED_I} -t ${FITS_TEMPLATES} -d ${OUTPUT_REDUCED_I} &
 
 # TASK: Write full IQUV data to disk on triggers
 # dada_dbdisk [options]
@@ -208,7 +206,7 @@ ${BINDIR}/dada_dbdisk -k ${DISKIQUV_KEY} -D ${OUTPUT_FULL_IQUV} 2> ${LOG_WRITER_
 # TASK: 8 bits tracking beams per pulsar TODO
 
 ######################################################################
-# Connect dada_db ringbuffers to the network
+echo "Connect dada_db ringbuffers to the network"
 ######################################################################
 
 # TASK: create dada header file for the Stokes I buffer
