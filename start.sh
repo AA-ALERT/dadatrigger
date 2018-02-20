@@ -177,7 +177,7 @@ echo "Start the data writers"
 #  -l <logfile>
 #  -b <padded_size>
 #  -n <filename prefix for dumps>
-${BINDIR}/dadafilterbank -c ${SCIENCE_CASE} -m ${SCIENCE_MODE_I} -k ${MAINI_KEY} -l ${LOG_WRITER_FULL_I} -n ${OUTPUT_FULL_I} -b ${FULL_I_PADDED_SIZE} &
+${BINDIR}/dadafilterbank -k ${MAINI_KEY} -l ${LOG_WRITER_FULL_I} -n ${OUTPUT_FULL_I} &
 
 # TASK: Write reduced (1-bit, downsampled) I to disk in FITS format
 # dadafits [options]
