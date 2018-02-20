@@ -152,6 +152,9 @@ EVENTEND=`date -u +%Y-%m-%d-%H:%M:%S --date "@${EVENT_END_STAMP}"`
 # N_EVENTS %i
 # YYYY-MM-DD-HH:MM:SS (start of observation, here UTC_START)
 # QUIT | YYYY-MM-DD-HH:MM:SS fraction YYYY-MM-DD-HH:MM:SS fraction DM SNR  (start and end of event)
+#
+# UPDATE: newer versions require 2 more data points in the trigger
+# QUIT | YYYY-MM-DD-HH:MM:SS fraction YYYY-MM-DD-HH:MM:SS fraction DM SNR WIDTH BEAM (start and end of event)
 
 # note that start time is:
 #  * converted to a byte index using BYTES_PER_SECOND and observation UTC_START
@@ -161,7 +164,7 @@ EVENTEND=`date -u +%Y-%m-%d-%H:%M:%S --date "@${EVENT_END_STAMP}"`
 #  * rounded up to RESOLUTION
 echo "N_EVENTS 1"    > trigger
 echo "${UTC_START}" >> trigger
-echo "${EVENTSTART} 0 ${EVENTEND} 0 2.0 1.0" >> trigger
+echo "${EVENTSTART} 0 ${EVENTEND} 0 2.0 1.0 3.0 3" >> trigger
 
 # TASK: connect AMBER to the ringbuffer
 
